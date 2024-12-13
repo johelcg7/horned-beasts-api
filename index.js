@@ -1,23 +1,18 @@
 import express from "express";
 import "dotenv/config";
+import beast from "./routes/beast.js"
+//Vamos a importar morgan
+import morgan from "morgan";
 
 
 const app = express();
+const port = process.env.PUERTO || 5000;
 
-const port = process.env.PUERTO || 3000;
+//Middleware
+app.use(morgan("tiny"));
 
-app.get('/', (req,res) => {
+app.use("/api", beast);
 
-    res.send('Horned Beasts API de Johel');
-});
-
-app.get("/test", (req, res) => {
-    res.json({
-        name: "Johel",
-        date: "07-10-2024",
-        timestamp: Date.now(),
-    })
-})
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
